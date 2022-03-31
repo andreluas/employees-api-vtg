@@ -1,0 +1,232 @@
+openapi: 3.0.1
+info: 
+  version: 0.0.3
+  title: API Employees
+  description: "Vertigo API Employees"
+  contact:
+    name: Suporte
+    email: contato@vertigo.com.br
+    url: https://vertigo.com.br
+
+tags:
+  - name: "Employees"
+    description: "Especificações sobre os Employees"
+
+paths:
+  /employee:
+    get:
+      tags:
+          - 
+            "Employees"
+      summary: "Busca todos os Employees"
+      responses:
+        "200":
+          description: "Ok"
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Employees'
+
+        "500":
+          description: "Erro interno no servidor"
+          content:
+            aplication/json:
+              schema: 
+                $ref: '#/components/schemas/ErrorModel'
+
+    post: 
+      tags:
+        - 
+          "Employees"
+      summary: "Cadastra um novo Employee"
+      requestBody: 
+        required: true
+        content:
+          aplication/json:
+            schema: 
+              $ref: '#/components/schemas/EmployeeCadastravel'
+
+      responses:
+        "201":
+          description: "Cliente cadastrado com sucesso"
+          content:
+            aplication/json:
+              schema: 
+                $ref: '#/components/schemas/Employee'
+
+        "500":
+          description: "Erro interno no servidor"
+          content:
+            aplication/json:
+              schema: 
+                $ref: '#/components/schemas/ErrorModel'
+
+  /employee/{employee_id}:
+    parameters:
+      - name: employee_id 
+        in: path
+        schema:
+          type: integer
+          maximum: 99999
+          example: 123
+        required: true
+
+    get: 
+      tags: 
+        - "Employees"
+      summary: "Busca um Employee por id"
+      responses:
+        "200": 
+          description: "Ok"
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Employee'  
+
+        "404":
+          description: "Employee não encontrado"
+          content:
+            aplication/json:
+              schema: 
+                $ref: '#/components/schemas/NotFoundModel'
+
+        "500":
+          description: "Erro interno no servidor"
+          content:
+            aplication/json:
+              schema: 
+                $ref: '#/components/schemas/ErrorModel'
+
+    delete:
+      tags: 
+        - "Employees"
+      summary: "Deleta um Employee pelo id"
+      responses:
+        "204":
+          description: ""
+
+        "404":
+          description: "Employee não encontrado"
+          content:
+            aplication/json:
+              schema: 
+                $ref: '#/components/schemas/NotFoundModel'
+
+        "500":
+          description: "Erro interno no servidor"
+          content:
+            aplication/json:
+              schema: 
+                $ref: '#/components/schemas/ErrorModel'
+
+    patch:
+      tags: 
+        - "Employees"
+      summary: "Atualiza um Employee pelo id"
+      requestBody: 
+        content:
+          aplication/json:
+            schema: 
+              $ref: '#/components/schemas/ObjectEmployee'
+      responses:
+        "200": 
+          description: "Ok"
+          content:
+            aplication/json:
+              schema: 
+                $ref: '#/components/schemas/Employee'
+
+        "404":
+          description: "Employee não encontrado"
+          content:
+            aplication/json:
+              schema: 
+                $ref: '#/components/schemas/NotFoundModel'
+
+        "500":
+          description: "Erro interno no servidor"
+          content:
+            aplication/json:
+              schema: 
+                $ref: '#/components/schemas/ErrorModel'
+
+components:
+  schemas:
+    Employee: 
+      $ref: '#/components/schemas/ObjectEmployee'
+
+    Employees:
+      type: array
+      items:
+        $ref: '#/components/schemas/Employee'
+
+    EmployeeCadastravel:
+      type: object
+      properties:
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "Andre"
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "Almeida"
+        department:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "Delivery"
+        job_title:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "Estagiario"
+        employee_type:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "Estg"
+        start_date:
+          type: string
+          format: date  
+          example: "2022-02-02"   
+        status:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "Ativo"
+        email:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "email@email.com.br"
+
+    ObjectEmployee:
+      allOf:
+        - $ref: '#/components/schemas/EmployeeCadastravel'
+      type: object
+      properties:
+        employee_id:
+          type: string
+
+    ErrorModel:
+      type: object
+      properties:
+        error: 
+          type: string
+          example: "Internal Server Error"
+        from: 
+          type: string
+          example: "employee-api-app"
+
+    NotFoundModel:
+      type: object
+      properties:
+        error: 
+          type: string
+          example: "uri not found"
+        from: 
+          type: string
+          example: "employee-api-app"
