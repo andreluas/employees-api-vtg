@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.boot.json.JsonParseException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,15 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         ErrorModel errorModel = new ErrorModel();
         errorModel.setError("Internal server error");
+        errorModel.setFrom(request.getRequestURI());
+        return ResponseEntity.status(status).body(errorModel);
+    }
+
+    @ExceptionHandler(JsonParseException.class)
+    public ResponseEntity<ErrorModel> badRequest(JsonParseException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ErrorModel errorModel = new ErrorModel();
+        errorModel.setError("Bad request sintaxe");
         errorModel.setFrom(request.getRequestURI());
         return ResponseEntity.status(status).body(errorModel);
     }
