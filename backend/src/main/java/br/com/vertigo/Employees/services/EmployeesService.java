@@ -58,14 +58,11 @@ public class EmployeesService {
     // Atualiza um Employee
     @Transactional
     public EmployeesDTO update(Long id, EmployeesDTO dto) {
-        try {
-            Employees entity = repository.getById(id);
-            copyDtoToEntity(dto, entity);
-            entity = repository.save(entity);
-            return new EmployeesDTO(entity);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Id not found" + id);
-        }
+        Optional<Employees> obj = repository.findById(id);
+        Employees entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+        copyDtoToEntity(dto, entity);
+        entity = repository.save(entity);
+        return new EmployeesDTO(entity);
     }
 
     // DTO -> Entity
