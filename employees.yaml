@@ -32,7 +32,7 @@ paths:
           content:
             aplication/json:
               schema: 
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: '#/components/schemas/ServerErrorModel'
 
     post: 
       tags:
@@ -54,12 +54,19 @@ paths:
               schema: 
                 $ref: '#/components/schemas/Employee'
 
+        "400":
+          description: "Bad Request"
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+
         "500":
           description: "Erro interno no servidor"
           content:
             aplication/json:
               schema: 
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: '#/components/schemas/ServerErrorModel'
 
   /employee/{employee_id}:
     parameters:
@@ -95,7 +102,7 @@ paths:
           content:
             aplication/json:
               schema: 
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: '#/components/schemas/ServerErrorModel'
 
     delete:
       tags: 
@@ -117,7 +124,7 @@ paths:
           content:
             aplication/json:
               schema: 
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: '#/components/schemas/ServerErrorModel'
 
     patch:
       tags: 
@@ -136,6 +143,13 @@ paths:
               schema: 
                 $ref: '#/components/schemas/Employee'
 
+        "400":
+          description: "Bad Request"
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+
         "404":
           description: "Employee não encontrado"
           content:
@@ -148,7 +162,7 @@ paths:
           content:
             aplication/json:
               schema: 
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: '#/components/schemas/ServerErrorModel'
 
 components:
   schemas:
@@ -211,7 +225,7 @@ components:
         employee_id:
           type: string
 
-    ErrorModel:
+    ServerErrorModel:
       type: object
       properties:
         error: 
@@ -230,3 +244,15 @@ components:
         from: 
           type: string
           example: "employee-api-app"
+
+    BadRequestModel:
+      type: object
+      properties:
+        error: 
+          type: string
+          example: "Bad request sintaxe"
+        from: 
+          type: string
+          example: "employee-api-app"
+
+    
