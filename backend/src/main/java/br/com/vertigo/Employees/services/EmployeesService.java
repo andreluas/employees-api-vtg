@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JsonParseException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +38,7 @@ public class EmployeesService {
 
     // Inserir um Employee
     @Transactional
-    public EmployeesDTO insert(EmployeesDTO dto) {
+    public EmployeesDTO insert(EmployeesDTO dto) throws JsonParseException {
         Employees entity = new Employees();
         copyDtoToEntity(dto, entity);
         entity = repository.save(entity);
@@ -55,7 +56,7 @@ public class EmployeesService {
 
     // Atualiza um Employee
     @Transactional
-    public EmployeesDTO update(Long id, EmployeesDTO dto) {
+    public EmployeesDTO update(Long id, EmployeesDTO dto) throws JsonParseException {
         Optional<Employees> obj = repository.findById(id);
         Employees entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
         copyDtoToEntity(dto, entity);
