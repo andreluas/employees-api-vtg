@@ -5,12 +5,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonParseException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.vertigo.Employees.dto.EmployeesDTO;
+import br.com.vertigo.Employees.dto.EmployeesRequiredDTO;
+import br.com.vertigo.Employees.dto.shared.Translate;
 import br.com.vertigo.Employees.entity.Employees;
 import br.com.vertigo.Employees.repository.EmployeesRepository;
 import br.com.vertigo.Employees.services.exceptions.ResourceNotFoundException;
@@ -20,6 +21,9 @@ public class EmployeesService {
 
     @Autowired
     private EmployeesRepository repository;
+
+    @Autowired
+    private Translate translate;
 
     // Buscar todos os employees
     @Transactional(readOnly = true)
@@ -32,17 +36,17 @@ public class EmployeesService {
     @Transactional(readOnly = true)
     public EmployeesDTO findById(Long id) {
         Optional<Employees> obj = repository.findById(id);
-        Employees entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+        Employees entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found " + id));
         return new EmployeesDTO(entity);
     }
 
     // Inserir um Employee
     @Transactional
-    public EmployeesDTO insert(EmployeesDTO dto) throws JsonParseException {
+    public EmployeesRequiredDTO insert(EmployeesRequiredDTO dto) {
         Employees entity = new Employees();
-        copyDtoToEntity(dto, entity);
+        translate.copyDtoRequiredToEntity(dto, entity);
         entity = repository.save(entity);
-        return new EmployeesDTO(entity);
+        return new EmployeesRequiredDTO(entity);
     }
 
     // Deletar um Employee
@@ -50,29 +54,18 @@ public class EmployeesService {
         try {
             repository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Id not foud" + id);
+            throw new ResourceNotFoundException("Id not foud " + id);
         }
     }
 
     // Atualiza um Employee
     @Transactional
-    public EmployeesDTO update(Long id, EmployeesDTO dto) throws JsonParseException {
+    public EmployeesDTO update(Long id, EmployeesDTO dto) {
         Optional<Employees> obj = repository.findById(id);
         Employees entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-        copyDtoToEntity(dto, entity);
+        translate.copyPatch(dto, entity);
         entity = repository.save(entity);
         return new EmployeesDTO(entity);
     }
 
-    // DTO -> Entity
-    private void copyDtoToEntity(EmployeesDTO dto, Employees entity) {
-        entity.setFirst_name(dto.getFirst_name());
-        entity.setLast_name(dto.getLast_name());
-        entity.setDepartment(dto.getDepartment());
-        entity.setJob_title(dto.getJob_title());
-        entity.setEmployee_type(dto.getEmployee_type());
-        entity.setStart_date(dto.getStart_date());
-        entity.setStatus(dto.getStatus());
-        entity.setEmail(dto.getEmail());
-    }
 }

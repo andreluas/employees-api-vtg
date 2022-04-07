@@ -3,44 +3,62 @@ package br.com.vertigo.Employees.dto;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.vertigo.Employees.entity.Employees;
 
-public class EmployeesDTO implements Serializable {
+public class EmployeesRequiredDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long employee_id;
+
+    @NotNull
+    @NotBlank
     @Size(min = 1, max = 45, message = "first_name must be 1 to 45 characters long")
     private String first_name;
 
+    @NotNull
+    @NotBlank
     @Size(min = 1, max = 45, message = "last_name must be 1 to 45 characters long")
     private String last_name;
 
+    @NotNull
+    @NotBlank
     @Size(min = 1, max = 45, message = "department must be 1 to 45 characters long")
     private String department;
 
+    @NotNull
+    @NotBlank
     @Size(min = 1, max = 45, message = "job_title must be 1 to 45 characters long")
     private String job_title;
 
+    @NotNull
+    @NotBlank
     @Size(min = 1, max = 45, message = "employee_type must be 1 to 45 characters long")
     private String employee_type;
 
+    @NotNull
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date start_date;
 
+    @NotNull
+    @NotBlank
     @Size(min = 1, max = 45, message = "status must be 1 to 45 characters long")
     private String status;
 
+    @NotNull
     @Size(min = 1, max = 45, message = "email must be 1 to 45 characters long")
     private String email;
 
-    EmployeesDTO() {
+    EmployeesRequiredDTO() {
     }
 
-    public EmployeesDTO(Long employee_id, String first_name, String last_name, String department, String job_title,
+    public EmployeesRequiredDTO(Long employee_id, String first_name, String last_name, String department,
+            String job_title,
             String employee_type, Date start_date, String status, String email) {
         this.employee_id = employee_id;
         this.first_name = first_name;
@@ -53,7 +71,7 @@ public class EmployeesDTO implements Serializable {
         this.email = email;
     }
 
-    public EmployeesDTO(Employees entity) {
+    public EmployeesRequiredDTO(Employees entity) {
         this.employee_id = entity.getEmployee_id();
         this.first_name = entity.getFirst_name();
         this.last_name = entity.getLast_name();

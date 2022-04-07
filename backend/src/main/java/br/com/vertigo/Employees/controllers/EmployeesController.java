@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.vertigo.Employees.dto.EmployeesDTO;
+import br.com.vertigo.Employees.dto.EmployeesRequiredDTO;
 import br.com.vertigo.Employees.services.EmployeesService;
 
 @RestController
-@RequestMapping(value = "/employees")
+@RequestMapping(value = "/employee")
 public class EmployeesController {
 
     @Autowired
@@ -46,8 +47,8 @@ public class EmployeesController {
     }
 
     @PostMapping
-    public ResponseEntity<EmployeesDTO> insert(@Valid @RequestBody EmployeesDTO dto) {
-        EmployeesDTO newDto = service.insert(dto);
+    public ResponseEntity<EmployeesRequiredDTO> insert(@Valid @RequestBody EmployeesRequiredDTO dto) {
+        EmployeesRequiredDTO newDto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getEmployee_id())
                 .toUri();
         return ResponseEntity.created(uri).body(newDto);

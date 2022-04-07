@@ -176,6 +176,15 @@ components:
 
     EmployeeCadastravel:
       type: object
+      required:
+        - "first_name"
+        - "last_name"
+        - "department"
+        - "job_title"
+        - "employee_type"
+        - "start_date"
+        - "status"
+        - "email"
       properties:
         first_name:
           type: string
@@ -218,41 +227,94 @@ components:
           example: "email@email.com.br"
 
     ObjectEmployee:
-      allOf:
-        - $ref: '#/components/schemas/EmployeeCadastravel'
       type: object
       properties:
-        employee_id:
+        first_name:
           type: string
+          minLength: 1
+          maxLength: 45
+          example: "Andre"
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "Almeida"
+        department:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "Delivery"
+        job_title:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "Estagiario"
+        employee_type:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "Estg"
+        start_date:
+          type: string
+          format: date  
+          example: "2022-02-02"   
+        status:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "Ativo"
+        email:
+          type: string
+          minLength: 1
+          maxLength: 45
+          example: "email@email.com.br"
 
     ServerErrorModel:
       type: object
       properties:
-        error: 
+        timestamp: 
           type: string
-          example: "Internal Server Error"
+          example: "2022-35-06 12:35:56"
+        status:
+          type: string
+          example: "500 INTERNAL_SERVER_ERROR"        
+        message:
+          type: string
+          example: "error message"
         from: 
           type: string
-          example: "employee-api-app"
+          example: "employees-api"
 
     NotFoundModel:
       type: object
       properties:
-        error: 
+        timestamp: 
           type: string
-          example: "uri not found"
+          example: "2022-35-06 12:35:56"
+        status:
+          type: string
+          example: "404 NOT_FOUND"        
+        message:
+          type: string
+          example: "error message"
         from: 
           type: string
-          example: "employee-api-app"
+          example: "employees-api"
 
     BadRequestModel:
       type: object
       properties:
-        error: 
+        timestamp: 
           type: string
-          example: "Bad request sintaxe"
+          example: "2022-35-06 12:35:56"
+        status:
+          type: string
+          example: "400 BAD_REQUEST"        
+        message:
+          type: string
+          example: "error message"
         from: 
           type: string
-          example: "employee-api-app"
+          example: "employees-api"
 
     

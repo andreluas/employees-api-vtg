@@ -1,8 +1,9 @@
 package br.com.vertigo.Employees.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,14 +17,31 @@ public class Employees implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
+    @Column(name = "employee_id")
     private Long employee_id;
+
+    @Column(name = "first_name")
     private String first_name;
+
+    @Column(name = "last_name")
     private String last_name;
+
+    @Column(name = "department")
     private String department;
+
+    @Column(name = "job_title")
     private String job_title;
+
+    @Column(name = "employee_type")
     private String employee_type;
+
+    @Column(name = "start_date")
     private Date start_date;
+
+    @Column(name = "status")
     private String status;
+
+    @Column(name = "email")
     private String email;
 
     public Employees() {
