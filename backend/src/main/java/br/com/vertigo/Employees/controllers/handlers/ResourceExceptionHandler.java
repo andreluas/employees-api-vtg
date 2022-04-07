@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.com.vertigo.Employees.services.exceptions.BadRequestException;
 import br.com.vertigo.Employees.services.exceptions.InternalServerException;
 import br.com.vertigo.Employees.services.exceptions.ResourceNotFoundException;
 
@@ -48,6 +49,18 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(status).body(errorModel);
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorModel> badRequest(BadRequestException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ErrorModel errorModel = new ErrorModel();
+        errorModel.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
+        errorModel.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+        errorModel.setFrom("employees-api");
+        errorModel.setMessage(e.getMessage());
+        return ResponseEntity.status(status).body(errorModel);
+    }
+
+    // ResponseEntityExceptionHandler
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
             HttpHeaders headers, HttpStatus status, WebRequest request) {
