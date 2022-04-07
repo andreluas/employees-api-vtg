@@ -60,7 +60,6 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(status).body(errorModel);
     }
 
-    // ResponseEntityExceptionHandler
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
             HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -82,14 +81,13 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers, HttpStatus status,
             WebRequest request) {
 
-        status = HttpStatus.BAD_REQUEST;
-        Map<String, String> errors = new HashMap<>();
-        errors.put("timestamp", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
-        errors.put("status", status.toString());
-        errors.put("from", "employees-api");
-        errors.put("message", e.getMessage());
+        ErrorModel errors = new ErrorModel();
+        errors.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
+        errors.setStatus(status.toString());
+        errors.setFrom("employees-api");
+        errors.setMessage(e.getMessage());
 
-        return new ResponseEntity<Object>(errors, status);
+        return ResponseEntity.status(status).body(errors);
     }
 
     @Override
@@ -97,14 +95,13 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers, HttpStatus status,
             WebRequest request) {
 
-        status = HttpStatus.BAD_REQUEST;
-        Map<String, String> errors = new HashMap<>();
-        errors.put("timestamp", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
-        errors.put("status", status.toString());
-        errors.put("from", "employees-api");
-        errors.put("message", e.getMessage());
+        ErrorModel errors = new ErrorModel();
+        errors.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
+        errors.setStatus(status.toString());
+        errors.setFrom("employees-api");
+        errors.setMessage(e.getMessage());
 
-        return new ResponseEntity<Object>(errors, status);
+        return ResponseEntity.status(status).body(errors);
     }
 
     @Override
@@ -112,13 +109,12 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers, HttpStatus status,
             WebRequest request) {
 
-        status = HttpStatus.METHOD_NOT_ALLOWED;
-        Map<String, String> errors = new HashMap<>();
-        errors.put("timestamp", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
-        errors.put("status", status.toString());
-        errors.put("from", "employees-api");
-        errors.put("message", e.getMessage());
+        ErrorModel errors = new ErrorModel();
+        errors.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
+        errors.setStatus(status.toString());
+        errors.setFrom("employees-api");
+        errors.setMessage(e.getMessage());
 
-        return new ResponseEntity<Object>(errors, status);
+        return ResponseEntity.status(status).body(errors);
     }
 }
