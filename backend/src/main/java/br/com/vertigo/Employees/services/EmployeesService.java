@@ -14,6 +14,7 @@ import br.com.vertigo.Employees.dto.EmployeesRequiredDTO;
 import br.com.vertigo.Employees.dto.shared.Translate;
 import br.com.vertigo.Employees.entity.Employees;
 import br.com.vertigo.Employees.repository.EmployeesRepository;
+import br.com.vertigo.Employees.services.exceptions.BooleanDtoException;
 import br.com.vertigo.Employees.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -42,7 +43,7 @@ public class EmployeesService {
 
     // Inserir um Employee
     @Transactional
-    public EmployeesRequiredDTO insert(EmployeesRequiredDTO dto) {
+    public EmployeesRequiredDTO insert(EmployeesRequiredDTO dto) throws BooleanDtoException {
         Employees entity = new Employees();
         translate.copyDtoRequiredToEntity(dto, entity);
         entity = repository.save(entity);

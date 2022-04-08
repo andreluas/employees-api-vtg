@@ -21,6 +21,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.vertigo.Employees.services.exceptions.BadRequestException;
+import br.com.vertigo.Employees.services.exceptions.BooleanDtoException;
 import br.com.vertigo.Employees.services.exceptions.InternalServerException;
 import br.com.vertigo.Employees.services.exceptions.ResourceNotFoundException;
 
@@ -51,6 +52,17 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorModel> badRequest(BadRequestException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ErrorModel errorModel = new ErrorModel();
+        errorModel.setTimestamp(LocalDateTime.now());
+        errorModel.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+        errorModel.setFrom("employees-api");
+        errorModel.setMessage(e.getMessage());
+        return ResponseEntity.status(status).body(errorModel);
+    }
+
+    @ExceptionHandler(BooleanDtoException.class)
+    public ResponseEntity<ErrorModel> booleanException(BooleanDtoException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ErrorModel errorModel = new ErrorModel();
         errorModel.setTimestamp(LocalDateTime.now());

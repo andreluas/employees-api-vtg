@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.vertigo.Employees.dto.EmployeesDTO;
 import br.com.vertigo.Employees.dto.EmployeesRequiredDTO;
 import br.com.vertigo.Employees.services.EmployeesService;
+import br.com.vertigo.Employees.services.exceptions.BooleanDtoException;
 
 @RestController
 @RequestMapping(value = "/employee")
@@ -47,7 +48,7 @@ public class EmployeesController {
     }
 
     @PostMapping
-    public ResponseEntity<EmployeesRequiredDTO> insert(@Valid @RequestBody EmployeesRequiredDTO dto) {
+    public ResponseEntity<EmployeesRequiredDTO> insert(@Valid @RequestBody EmployeesRequiredDTO dto) throws BooleanDtoException {
         EmployeesRequiredDTO newDto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getEmployee_id())
                 .toUri();

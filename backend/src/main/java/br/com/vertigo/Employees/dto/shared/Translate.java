@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import br.com.vertigo.Employees.dto.EmployeesDTO;
 import br.com.vertigo.Employees.dto.EmployeesRequiredDTO;
 import br.com.vertigo.Employees.entity.Employees;
+import br.com.vertigo.Employees.services.exceptions.BooleanDtoException;
 
 @Service
 public class Translate {
@@ -20,15 +21,50 @@ public class Translate {
         entity.setEmail(dto.getEmail());
     }
 
-    public void copyDtoRequiredToEntity(EmployeesRequiredDTO dto, Employees entity) {
-        entity.setFirst_name(dto.getFirst_name());
-        entity.setLast_name(dto.getLast_name());
-        entity.setDepartment(dto.getDepartment());
-        entity.setJob_title(dto.getJob_title());
-        entity.setEmployee_type(dto.getEmployee_type());
+    public void copyDtoRequiredToEntity(EmployeesRequiredDTO dto, Employees entity) throws BooleanDtoException {
+        if (dto.getFirst_name().equals("false") || dto.getFirst_name().equals("true")) {
+            throw new BooleanDtoException("não permitido valores boleanos");
+        } else {
+            entity.setFirst_name(dto.getFirst_name());
+        }
+
+        if (dto.getLast_name().equals("false") || dto.getLast_name().equals("true")) {
+            throw new BooleanDtoException("não permitido valores boleanos");
+        } else {
+            entity.setLast_name(dto.getLast_name());
+        }
+
+        if(dto.getDepartment().equals("false") || dto.getDepartment().equals("true")) {
+            throw new BooleanDtoException("não permitido valores boleanos");
+        } else {
+            entity.setDepartment(dto.getDepartment());
+        }
+
+        if(dto.getDepartment().equals("false") || dto.getDepartment().equals("true")) {
+            throw new BooleanDtoException("não permitido valores boleanos");
+        } else {
+            entity.setJob_title(dto.getJob_title());
+        }
+
+        if(dto.getEmployee_type().equals("false") || dto.getEmployee_type().equals("true")) {
+            throw new BooleanDtoException("não permitido valores boleanos");
+        } else {
+            entity.setEmployee_type(dto.getEmployee_type());
+        }
+
         entity.setStart_date(dto.getStart_date());
-        entity.setStatus(dto.getStatus());
-        entity.setEmail(dto.getEmail());
+
+        if(dto.getStatus().equals("false") || dto.getStatus().equals("true")) {
+            throw new BooleanDtoException("não permitido valores boleanos");
+        } else {
+            entity.setStatus(dto.getStatus());
+        }
+
+        if(dto.getEmail().equals("false") || dto.getEmail().equals("true")) {
+            throw new BooleanDtoException("não permitido valores boleanos");
+        } else {
+            entity.setEmail(dto.getEmail());
+        }
     }
 
     public void copyPatch(EmployeesDTO dto, Employees entity) {
