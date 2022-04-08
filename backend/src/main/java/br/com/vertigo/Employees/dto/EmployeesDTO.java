@@ -3,6 +3,7 @@ package br.com.vertigo.Employees.dto;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -13,24 +14,31 @@ public class EmployeesDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long employee_id;
+
+    @Pattern(regexp = "^[a-zA-Z-+\s]+$", message="favor inserir apenas caracteres")
     @Size(min = 1, max = 45, message = "first_name must be 1 to 45 characters long")
     private String first_name;
 
+    @Pattern(regexp = "^[a-zA-Z-+\s]+$", message="favor inserir apenas caracteres")
     @Size(min = 1, max = 45, message = "last_name must be 1 to 45 characters long")
     private String last_name;
 
+    @Pattern(regexp = "^[a-zA-Z-+\s]+$", message="favor inserir apenas caracteres")
     @Size(min = 1, max = 45, message = "department must be 1 to 45 characters long")
     private String department;
 
+    @Pattern(regexp = "^[a-zA-Z-+\s]+$", message="favor inserir apenas caracteres")
     @Size(min = 1, max = 45, message = "job_title must be 1 to 45 characters long")
     private String job_title;
 
+    @Pattern(regexp = "^[a-zA-Z-+\s]+$", message="favor inserir apenas caracteres")
     @Size(min = 1, max = 45, message = "employee_type must be 1 to 45 characters long")
     private String employee_type;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date start_date;
 
+    @Pattern(regexp = "^[a-zA-Z-+\s]+$", message="favor inserir apenas caracteres")
     @Size(min = 1, max = 45, message = "status must be 1 to 45 characters long")
     private String status;
 

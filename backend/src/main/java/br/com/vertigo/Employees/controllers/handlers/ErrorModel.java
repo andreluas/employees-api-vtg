@@ -1,11 +1,15 @@
 package br.com.vertigo.Employees.controllers.handlers;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ErrorModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String timestamp;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime timestamp;
     private String status;
     private String from;
     private String message;
@@ -13,11 +17,11 @@ public class ErrorModel implements Serializable {
     public ErrorModel() {
     }
 
-    public String getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 

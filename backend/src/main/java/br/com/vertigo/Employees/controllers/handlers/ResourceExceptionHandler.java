@@ -31,7 +31,7 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorModel> employeeNotFoud(ResourceNotFoundException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         ErrorModel errorModel = new ErrorModel();
-        errorModel.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
+        errorModel.setTimestamp(LocalDateTime.now());
         errorModel.setStatus(HttpStatus.NOT_FOUND.toString());
         errorModel.setFrom("employees-api");
         errorModel.setMessage(e.getMessage());
@@ -42,7 +42,7 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorModel> serverError(InternalServerException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         ErrorModel errorModel = new ErrorModel();
-        errorModel.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
+        errorModel.setTimestamp(LocalDateTime.now());
         errorModel.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
         errorModel.setFrom("employees-api");
         errorModel.setMessage(e.getMessage());
@@ -53,7 +53,7 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorModel> badRequest(BadRequestException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ErrorModel errorModel = new ErrorModel();
-        errorModel.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
+        errorModel.setTimestamp(LocalDateTime.now());
         errorModel.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
         errorModel.setFrom("employees-api");
         errorModel.setMessage(e.getMessage());
@@ -82,7 +82,7 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
             WebRequest request) {
 
         ErrorModel errors = new ErrorModel();
-        errors.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
+        errors.setTimestamp(LocalDateTime.now());
         errors.setStatus(status.toString());
         errors.setFrom("employees-api");
         errors.setMessage(e.getMessage());
@@ -96,7 +96,7 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
             WebRequest request) {
 
         ErrorModel errors = new ErrorModel();
-        errors.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
+        errors.setTimestamp(LocalDateTime.now());
         errors.setStatus(status.toString());
         errors.setFrom("employees-api");
         errors.setMessage(e.getMessage());
@@ -110,7 +110,7 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
             WebRequest request) {
 
         ErrorModel errors = new ErrorModel();
-        errors.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss")));
+        errors.setTimestamp(LocalDateTime.now());
         errors.setStatus(status.toString());
         errors.setFrom("employees-api");
         errors.setMessage(e.getMessage());
