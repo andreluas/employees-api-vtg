@@ -214,7 +214,7 @@ components:
         start_date:
           type: string
           format: date  
-          example: "02-02-2022"   
+          example: "02/02/2022"   
         status:
           type: string
           minLength: 1
@@ -257,7 +257,7 @@ components:
         start_date:
           type: string
           format: date  
-          example: "02-02-2022"   
+          example: "02/02/2022"   
         status:
           type: string
           minLength: 1
@@ -274,7 +274,7 @@ components:
       properties:
         timestamp: 
           type: string
-          example: "2022-35-06 12:35:56"
+          example: "06/10/2022 12:35:56"
         status:
           type: string
           example: "500 INTERNAL_SERVER_ERROR"        
@@ -290,7 +290,7 @@ components:
       properties:
         timestamp: 
           type: string
-          example: "2022-35-06 12:35:56"
+          example: "06/10/2022 12:35:56"
         status:
           type: string
           example: "404 NOT_FOUND"        
@@ -306,7 +306,7 @@ components:
       properties:
         timestamp: 
           type: string
-          example: "2022-35-06 12:35:56"
+          example: "06/10/2022 12:35:56"
         status:
           type: string
           example: "400 BAD_REQUEST"        

@@ -4,9 +4,12 @@ import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -36,7 +39,7 @@ public class EmployeesController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<EmployeesDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<EmployeesDTO> findById(@Validated @Min(1) @Max(2147483647) @PathVariable Long id) {
         EmployeesDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
