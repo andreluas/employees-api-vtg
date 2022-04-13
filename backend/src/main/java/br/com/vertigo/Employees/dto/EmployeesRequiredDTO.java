@@ -48,7 +48,7 @@ public class EmployeesRequiredDTO implements Serializable {
     private String employee_type;
 
     @NotNull
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date start_date;
 
     @NotNull

@@ -35,7 +35,7 @@ public class EmployeesDTO implements Serializable {
     @Size(min = 1, max = 45, message = "employee_type must be 1 to 45 characters long")
     private String employee_type;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date start_date;
 
     @Pattern(regexp = "^[a-zA-Z-à-ú-À-ú+\s]+$", message="favor inserir apenas caracteres")

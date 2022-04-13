@@ -55,7 +55,7 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ErrorModel errorModel = new ErrorModel();
         errorModel.setTimestamp(LocalDateTime.now());
-        errorModel.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+        errorModel.setStatus(HttpStatus.BAD_REQUEST.toString());
         errorModel.setFrom("employees-api");
         errorModel.setMessage(e.getMessage());
         return ResponseEntity.status(status).body(errorModel);
@@ -66,7 +66,7 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ErrorModel errorModel = new ErrorModel();
         errorModel.setTimestamp(LocalDateTime.now());
-        errorModel.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+        errorModel.setStatus(HttpStatus.BAD_REQUEST.toString());
         errorModel.setFrom("employees-api");
         errorModel.setMessage(e.getMessage());
         return ResponseEntity.status(status).body(errorModel);
