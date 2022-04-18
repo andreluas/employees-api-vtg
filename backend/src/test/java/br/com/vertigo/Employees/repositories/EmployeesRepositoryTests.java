@@ -24,7 +24,7 @@ public class EmployeesRepositoryTests {
 
     @BeforeEach
     void setUp() throws Exception {
-        existingId = 1L;
+        existingId = 123L;
         nonExistingId = 100L;
         totalEmployees = 10L;
     }
