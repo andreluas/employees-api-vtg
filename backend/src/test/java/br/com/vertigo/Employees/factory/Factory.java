@@ -9,10 +9,10 @@ import br.com.vertigo.Employees.dto.EmployeesRequiredDTO;
 import br.com.vertigo.Employees.entity.Employees;
 
 public class Factory {
-    
+
     public static Employees createEmployee() {
 
-        Date data = new Date(10/10/2022);
+        Date data = new Date(10 / 10 / 2022);
         Employees employees = new Employees();
         employees.setFirst_name("Teste");
         employees.setLast_name("Teste");
@@ -39,11 +39,20 @@ public class Factory {
     }
 
     public static List<EmployeesDTO> createListEmployeeDTO() {
-        
-        List<EmployeesDTO> listEmployee = new ArrayList<>(); 
+
+        List<EmployeesDTO> listEmployee = new ArrayList<>();
         EmployeesDTO employeesDTO = createEmployeeDTO();
         listEmployee.add(employeesDTO);
-        
+
+        return listEmployee;
+    }
+
+    public static List<Employees> createListEmployee() {
+
+        List<Employees> listEmployee = new ArrayList<>();
+        Employees employees = createEmployee();
+        listEmployee.add(employees);
+
         return listEmployee;
     }
 }
