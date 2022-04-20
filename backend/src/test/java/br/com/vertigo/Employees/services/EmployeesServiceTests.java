@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import br.com.vertigo.Employees.dto.EmployeesDTO;
+import br.com.vertigo.Employees.dto.shared.Translate;
 import br.com.vertigo.Employees.entity.Employees;
 import br.com.vertigo.Employees.factory.Factory;
 import br.com.vertigo.Employees.repository.EmployeesRepository;
@@ -25,12 +26,15 @@ import br.com.vertigo.Employees.services.exceptions.ResourceNotFoundException;
 
 @ExtendWith(SpringExtension.class)
 public class EmployeesServiceTests {
-    
+
     @InjectMocks
     private EmployeesService service;
 
     @Mock
     private EmployeesRepository repository;
+
+    @Mock
+    private Translate translate;
 
     private Long existingId;
     private Long nonExistingId;
@@ -46,13 +50,13 @@ public class EmployeesServiceTests {
         employeeDTO = Factory.createEmployeeDTO();
         listEmployee = Factory.createListEmployee();
 
-        when(repository.findAll()).thenReturn(listEmployee);    
+        when(repository.findAll()).thenReturn(listEmployee);
         when(repository.findById(existingId)).thenReturn(Optional.of(employee));
         when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
 
         doNothing().when(repository).deleteById(existingId);
         doThrow(ResourceNotFoundException.class).when(repository).deleteById(nonExistingId);
-        
+
         when(repository.save(ArgumentMatchers.any())).thenReturn(employee);
     }
 
@@ -103,6 +107,9 @@ public class EmployeesServiceTests {
     public void updateShouldReturnEmployeeDTOWhenIdExists() {
 
         EmployeesDTO result = service.update(existingId, employeeDTO);
+        Employees entity = repository.getById(existingId);
+        translate.copyPatch(employeeDTO, entity);
+
         Assertions.assertNotNull(result);
     }
 
