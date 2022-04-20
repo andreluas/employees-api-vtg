@@ -135,4 +135,14 @@ public class EmployeesControlerTests {
         result.andExpect(jsonPath("$.last_name").exists());
     }
 
+    @Test
+    public void updateShouldReturnExceptionWhenIdDoNotExists() throws Exception {
+
+        String jsonBody = objectMapper.writeValueAsString(employeeDTO);
+
+        ResultActions result = mockMvc.perform(patch("/employee/{id}", nonExistingId).content(jsonBody).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isNotFound());
+    }
+
 }
