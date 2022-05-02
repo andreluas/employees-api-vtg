@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import br.com.vertigo.Employees.entity.Employees;
 import br.com.vertigo.Employees.factory.Factory;
@@ -24,7 +25,7 @@ public class EmployeesRepositoryTests {
 
     @BeforeEach
     void setUp() throws Exception {
-        existingId = 123L;
+        existingId = 1L;
         nonExistingId = 100L;
         totalEmployees = 10L;
     }
@@ -45,7 +46,7 @@ public class EmployeesRepositoryTests {
 
     @Test
     public void saveShouldPersistWithAutoincrementWhenIdIsNull() {
-        
+
         Employees employees = Factory.createEmployee();
         employees.setEmployee_id(null);
         employees = repository.save(employees);
@@ -62,5 +63,13 @@ public class EmployeesRepositoryTests {
 
         Assertions.assertFalse(result.isPresent());
     }
-    
+
+    @Test
+    public void deleteShouldThrowExceptionWhenIdDoNotExists() {
+
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+            repository.deleteById(nonExistingId);
+        });
+    }
+
 }
