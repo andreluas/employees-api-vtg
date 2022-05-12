@@ -23,14 +23,14 @@ paths:
         "200":
           description: "Ok"
           content:
-            aplication/json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/Employees'
 
         "500":
           description: "Erro interno no servidor"
           content:
-            aplication/json:
+            application/json:
               schema: 
                 $ref: '#/components/schemas/ServerErrorModel'
 
@@ -42,7 +42,7 @@ paths:
       requestBody: 
         required: true
         content:
-          aplication/json:
+          application/json:
             schema: 
               $ref: '#/components/schemas/EmployeeCadastravel'
 
@@ -50,21 +50,21 @@ paths:
         "201":
           description: "Cliente cadastrado com sucesso"
           content:
-            aplication/json:
+            application/json:
               schema: 
                 $ref: '#/components/schemas/Employee'
 
         "400":
           description: "Bad Request"
           content:
-            aplication/json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/BadRequestModel'
 
         "500":
           description: "Erro interno no servidor"
           content:
-            aplication/json:
+            application/json:
               schema: 
                 $ref: '#/components/schemas/ServerErrorModel'
 
@@ -86,21 +86,21 @@ paths:
         "200": 
           description: "Ok"
           content:
-            aplication/json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/Employee'  
 
         "404":
           description: "Employee não encontrado"
           content:
-            aplication/json:
+            application/json:
               schema: 
                 $ref: '#/components/schemas/NotFoundModel'
 
         "500":
           description: "Erro interno no servidor"
           content:
-            aplication/json:
+            application/json:
               schema: 
                 $ref: '#/components/schemas/ServerErrorModel'
 
@@ -115,14 +115,14 @@ paths:
         "404":
           description: "Employee não encontrado"
           content:
-            aplication/json:
+            application/json:
               schema: 
                 $ref: '#/components/schemas/NotFoundModel'
 
         "500":
           description: "Erro interno no servidor"
           content:
-            aplication/json:
+            application/json:
               schema: 
                 $ref: '#/components/schemas/ServerErrorModel'
 
@@ -132,35 +132,35 @@ paths:
       summary: "Atualiza um Employee pelo id"
       requestBody: 
         content:
-          aplication/json:
+          application/json:
             schema: 
               $ref: '#/components/schemas/ObjectEmployee'
       responses:
         "200": 
           description: "Ok"
           content:
-            aplication/json:
+            application/json:
               schema: 
                 $ref: '#/components/schemas/Employee'
 
         "400":
           description: "Bad Request"
           content:
-            aplication/json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/BadRequestModel'
 
         "404":
           description: "Employee não encontrado"
           content:
-            aplication/json:
+            application/json:
               schema: 
                 $ref: '#/components/schemas/NotFoundModel'
 
         "500":
           description: "Erro interno no servidor"
           content:
-            aplication/json:
+            application/json:
               schema: 
                 $ref: '#/components/schemas/ServerErrorModel'
 
@@ -214,7 +214,7 @@ components:
         start_date:
           type: string
           format: date  
-          example: "02/02/2022"   
+          example: "2022-02-02"   
         status:
           type: string
           minLength: 1
@@ -257,7 +257,7 @@ components:
         start_date:
           type: string
           format: date  
-          example: "02/02/2022"   
+          example: "2022-02-02"   
         status:
           type: string
           minLength: 1
@@ -316,5 +316,3 @@ components:
         from: 
           type: string
           example: "employees-api"
-
-    
